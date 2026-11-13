@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.ListAdapter
 import com.jlara.personasrv.Persona
 import com.jlara.personasrv.databinding.ItemPersonaBinding
 
-class PersonaAdapter : ListAdapter<Persona, PersonaViewHolder>(DIFF_CALLBACK) {
+class PersonaAdapter(
+    private val onClickListener: (Persona) -> Unit,
+) : ListAdapter<Persona, PersonaViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonaViewHolder {
         val binding = ItemPersonaBinding.inflate(
@@ -17,7 +19,7 @@ class PersonaAdapter : ListAdapter<Persona, PersonaViewHolder>(DIFF_CALLBACK) {
     }
 
     override fun onBindViewHolder(holder: PersonaViewHolder, position: Int) {
-        holder.render(getItem(position))
+        holder.render(getItem(position), onClickListener)
     }
 
     companion object {

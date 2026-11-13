@@ -9,8 +9,11 @@ import com.jlara.personasrv.databinding.ItemPersonaBinding
 
 class PersonaViewHolder(private val binding: ItemPersonaBinding) : ViewHolder(binding.root) {
 
-    fun render(persona: Persona) {
+    fun render(persona: Persona, onClickListener: (Persona) -> Unit) {
         binding.tvNombre.text = persona.nombre
+        binding.root.setOnClickListener {
+            onClickListener(persona)
+        }
         binding.tvDescripcion.text = persona.descripcion
         Glide.with(binding.ivPersona.context)
             .load(persona.imagen)

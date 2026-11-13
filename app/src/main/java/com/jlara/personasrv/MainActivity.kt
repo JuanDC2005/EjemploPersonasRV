@@ -9,12 +9,17 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jlara.personasrv.adapter.PersonaAdapter
 import com.jlara.personasrv.databinding.ActivityMainBinding
+import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var layoutManager: LinearLayoutManager
     private lateinit var adapter: PersonaAdapter
     private var listaPersonas: List<Persona> = emptyList()
+
+    private fun onItemSelected(persona: Persona) {
+        Toast.makeText(this, "Has pulsado sobre ${persona.nombre}", Toast.LENGTH_SHORT).show()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         binding.rvPersonas.layoutManager = layoutManager
         binding.rvPersonas.setHasFixedSize(true)
         binding.rvPersonas.itemAnimator = DefaultItemAnimator()
-        adapter = PersonaAdapter()
+        adapter = PersonaAdapter { persona -> onItemSelected(persona) }
         binding.rvPersonas.adapter = adapter
         adapter.submitList(listaPersonas)
     }
